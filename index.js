@@ -115,14 +115,9 @@ async function callAzureChatCompletion({
       `/openai/deployments/${AZURE_OPENAI_API_DEPLOYMENT_NAME}/chat/completions`,
       base
     );
-    completionUrl.searchParams.set(
-      "api-version",
-      AZURE_OPENAI_API_VERSION
-    );
+    completionUrl.searchParams.set("api-version", AZURE_OPENAI_API_VERSION);
   } catch (err) {
-    const error = new Error(
-      `Invalid AZURE_OPENAI_ENDPOINT: ${err.message}`
-    );
+    const error = new Error(`Invalid AZURE_OPENAI_ENDPOINT: ${err.message}`);
     error.status = 500;
     throw error;
   }
@@ -178,7 +173,9 @@ async function callAzureChatCompletion({
 }
 
 // ---- Route: /api/tags ------------------------------------------------------
-
+app.get("/", (req, res) => {
+  res.send("Tag Generation API is running.");
+});
 app.post("/api/tags", async (req, res) => {
   try {
     const body = req.body || {};
